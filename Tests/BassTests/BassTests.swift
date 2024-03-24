@@ -1,8 +1,12 @@
 import XCTest
 @testable import Bass
+import CBass
 
 final class BassTests: XCTestCase {
     func testExample() throws {
+        Bass_Start()
+        StartBass()
+             
         // XCTest Documentation
         // https://developer.apple.com/documentation/xctest
 

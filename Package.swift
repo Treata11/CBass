@@ -30,10 +30,12 @@ let package = Package(
             ],
             path: "Sources/C"
         ),
+        /// The **iOS** binary target
         .binaryTarget(
             name: "bass",
             path: "./Frameworks/bass.xcframework"
         ),
+        /// The **macOS** binary target
         .binaryTarget(
             name: "libbass",
             path: "./Frameworks/libbass.xcframework"
