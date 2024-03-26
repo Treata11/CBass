@@ -1,7 +1,14 @@
 # CBass
 
+BASS is an audio library (written in C and C++) developed by Un4seen Developments. See [un4seen.com](https://www.un4seen.com) for downloads, documentation, licensing terms, and a User Forum.
 
-## The [BASS](https://www.un4seen.com/bass.html) Licensing
+CBass is a Swift Package (written by Teatra Norouzi) to easily import the BASS library into a Swift project.  It is freely available as a public repository at [github.com/Teatra11/CBass](https://www.github.com/Teatra11/CBass).
+
+To import BASS into your Xcode project, click on "File | Add Package Dependencies...".  In the resultant pop-up window, type "github.com/Teatra11/CBass" as the repository url, and click on "Add Package".  Then type "import CBass" at the top of any class in the project using BASS library commands.
+
+To be clear, the CBass Swift Package wrapper is open source, but the wrapper's contents (mainly the files bass.xcframework, libbass.xcframework, bass.h, bridge.c, and bridge.h) are proprietary to Un4seen Developments. Usage of these files is free for non-commercial use.  Commercial developers should contact Un4seen Developments to arrange proper licensing.  The following is taken from their web site:
+
+## [BASS](https://www.un4seen.com/bass.html) Licensing
 BASS is free for non-commercial use. If you are a non-commercial entity (eg. an individual) and you are not making any money from your product (through sales, advertising, etc) then you can use BASS in it for free. Otherwise, one of the following licences will be required.
 
 ### Shareware licence: €125
