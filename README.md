@@ -2,7 +2,7 @@
 
 BASS is an audio library (written in C and C++) developed by Un4seen Developments. See [un4seen.com](https://www.un4seen.com) for downloads, documentation, licensing terms, and a User Forum.
 
-CBass is a Swift Package (written by Teatra Norouzi) to easily import the BASS library into a Swift project.  It is freely available as a public repository at [github.com/Teatra11/CBass](https://www.github.com/Teatra11/CBass).
+CBass is a Swift Package to allow the BASS library to be  easily imported into a Swift project.  It is freely available as a public repository at [github.com/Teatra11/CBass](https://www.github.com/Teatra11/CBass).
 
 To import BASS into your Xcode project, click on "File | Add Package Dependencies...".  In the resultant pop-up window, type "github.com/Teatra11/CBass" as the repository url, and click on "Add Package".  Then type "import CBass" at the top of any class in the project using BASS library commands.
 
