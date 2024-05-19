@@ -12,9 +12,13 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "CBass",
-//            type: libType,
             targets: ["Bass"]
         ),
+        
+        .library(
+            name: "BassMIDI",
+            targets: ["BassMIDI"]
+        )
     ],
     
     targets: [
@@ -45,6 +49,19 @@ let package = Package(
         .binaryTarget(
             name: "libbass",
             path: "./Frameworks/libbass.xcframework"
-        )
+        ),
+        
+        .target(
+            name: "BassMIDI",
+            dependencies: [
+                .target(name: "bassmidi", condition: .when(platforms: [.iOS]))
+            ],
+            path: "Sources/BassMIDI"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassmidi",
+            path: "./Frameworks/bassmidi.xcframework"
+        ),
     ]
 )
