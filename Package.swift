@@ -71,7 +71,8 @@ let package = Package(
         .target(
             name: "BassMIDI",
             dependencies: [
-                .target(name: "bassmidi", condition: .when(platforms: [.iOS]))
+                .target(name: "bassmidi", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassmidi", condition: .when(platforms: [.macOS]))
             ],
             path: "Sources/BassMIDI"
         ),
@@ -79,6 +80,11 @@ let package = Package(
         .binaryTarget(
             name: "bassmidi",
             path: "./Frameworks/bassmidi.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassmidi",
+            path: "./Frameworks/libbassmidi.xcframework"
         ),
     ]
 )
