@@ -38,7 +38,13 @@ let package = Package(
         .library(
             name: "BassOpus",
             targets: ["BassOpus"]
+        ),
+        
+        .library(
+            name: "BassWebM",
+            targets: ["BassWebM"]
         )
+        
     ],
     
     targets: [
@@ -55,7 +61,8 @@ let package = Package(
                 .target(name: "BassMIDI"),
                 .target(name: "BassDSD"),
                 .target(name: "BassHLS"),
-                .target(name: "BassOpus")
+                .target(name: "BassOpus"),
+                .target(name: "BassWebM")
             ],
             path: "Sources/CBass"
         ),
@@ -178,6 +185,30 @@ let package = Package(
         .binaryTarget(
             name: "libbassopus",
             path: "./Frameworks/libbassopus.xcframework"
+        ),
+        
+        // MARK: - BASS WebM
+        /**
+         An extension enabling the playback of [WebM](https://www.webmproject.org/) and
+         [Matroska](https://www.matroska.org/) files and streams.
+         */
+        .target(
+            name: "BassWebM",
+            dependencies: [
+                .target(name: "basswebm", condition: .when(platforms: [.iOS])),
+                .target(name: "libbasswebm", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassWebM"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "basswebm",
+            path: "./Frameworks/basswebm.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbasswebm",
+            path: "./Frameworks/libbasswebm.xcframework"
         ),
     ]
 )
