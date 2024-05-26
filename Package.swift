@@ -33,6 +33,11 @@ let package = Package(
         .library(
             name: "BassHLS",
             targets: ["BassHLS"]
+        ),
+        
+        .library(
+            name: "BassOpus",
+            targets: ["BassOpus"]
         )
     ],
     
@@ -49,7 +54,8 @@ let package = Package(
                 .target(name: "Bass"),
                 .target(name: "BassMIDI"),
                 .target(name: "BassDSD"),
-                .target(name: "BassHLS")
+                .target(name: "BassHLS"),
+                .target(name: "BassOpus")
             ],
             path: "Sources/CBass"
         ),
@@ -149,6 +155,29 @@ let package = Package(
         .binaryTarget(
             name: "libbasshls",
             path: "./Frameworks/libbasshls.xcframework"
+        ),
+        
+        // MARK: - BASS Opus
+        /**
+         An extension enabling the playback of [Opus](https://opus-codec.org/) encoded files and streams.
+         */
+        .target(
+            name: "BassOpus",
+            dependencies: [
+                .target(name: "bassopus", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassopus", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassOpus"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassopus",
+            path: "./Frameworks/bassopus.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassopus",
+            path: "./Frameworks/libbassopus.xcframework"
         ),
     ]
 )
