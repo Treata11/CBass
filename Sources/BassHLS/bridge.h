@@ -8,6 +8,6 @@
 #ifndef bridge_h
 #define bridge_h
 
-#include <bassdsd.h>
+#include <basshls.h>
 
 #endif /* bridge_h */

@@ -28,6 +28,11 @@ let package = Package(
         .library(
             name: "BassDSD",
             targets: ["BassDSD"]
+        ),
+        
+        .library(
+            name: "BassHLS",
+            targets: ["BassHLS"]
         )
     ],
     
@@ -43,7 +48,8 @@ let package = Package(
             dependencies: [
                 .target(name: "Bass"),
                 .target(name: "BassMIDI"),
-                .target(name: "BassDSD")
+                .target(name: "BassDSD"),
+                .target(name: "BassHLS")
             ],
             path: "Sources/CBass"
         ),
@@ -119,6 +125,30 @@ let package = Package(
         .binaryTarget(
             name: "libbassdsd",
             path: "./Frameworks/libbassdsd.xcframework"
+        ),
+        
+        // MARK: - BASS HLS
+        /**
+         An extension enabling the playback of `HLS (HTTP Live Streaming)` streams.
+         Local media playlists and segments are also supported.
+         */
+        .target(
+            name: "BassHLS",
+            dependencies: [
+                .target(name: "basshls", condition: .when(platforms: [.iOS])),
+                .target(name: "libbasshls", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassHLS"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "basshls",
+            path: "./Frameworks/basshls.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbasshls",
+            path: "./Frameworks/libbasshls.xcframework"
         ),
     ]
 )
