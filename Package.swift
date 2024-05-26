@@ -43,8 +43,12 @@ let package = Package(
         .library(
             name: "BassWebM",
             targets: ["BassWebM"]
-        )
+        ),
         
+        .library(
+            name: "BassWV",
+            targets: ["BassWV"]
+        )
     ],
     
     targets: [
@@ -62,7 +66,8 @@ let package = Package(
                 .target(name: "BassDSD"),
                 .target(name: "BassHLS"),
                 .target(name: "BassOpus"),
-                .target(name: "BassWebM")
+                .target(name: "BassWebM"),
+                .target(name: "BassWV")
             ],
             path: "Sources/CBass"
         ),
@@ -209,6 +214,30 @@ let package = Package(
         .binaryTarget(
             name: "libbasswebm",
             path: "./Frameworks/libbasswebm.xcframework"
+        ),
+        
+        // MARK: - BASS WV
+        /**
+         An extension enabling the playback of [WavPack](https://www.wavpack.com/)
+         encoded files and streams, including WavPack DSD files when used with the BASSDSD add-on.
+         */
+        .target(
+            name: "BassWV",
+            dependencies: [
+                .target(name: "basswv", condition: .when(platforms: [.iOS])),
+                .target(name: "libbasswv", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassWV"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "basswv",
+            path: "./Frameworks/basswv.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbasswv",
+            path: "./Frameworks/libbasswv.xcframework"
         ),
     ]
 )

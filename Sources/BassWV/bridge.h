@@ -8,6 +8,6 @@
 #ifndef bridge_h
 #define bridge_h
 
-#include <basswebm.h>
+#include <basswv.h>
 
 #endif /* bridge_h */
