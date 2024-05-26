@@ -23,6 +23,11 @@ let package = Package(
         .library(
             name: "BassMIDI",
             targets: ["BassMIDI"]
+        ),
+        
+        .library(
+            name: "BassDSD",
+            targets: ["BassDSD"]
         )
     ],
     
@@ -30,17 +35,20 @@ let package = Package(
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         
+        // FIXME: Fails to import any of the dependent modules
         /// The target which has all the other targets as its dependencies.
         /// Importing this module would result in the importing of all the other modules.
         .target(
             name: "CBass",
             dependencies: [
                 .target(name: "Bass"),
-                .target(name: "BassMIDI")
+                .target(name: "BassMIDI"),
+                .target(name: "BassDSD")
             ],
             path: "Sources/CBass"
         ),
         
+        // MARK: - BASS
         .target(
             name: "Bass",
             dependencies: [
@@ -60,6 +68,7 @@ let package = Package(
             path: "./Frameworks/libbass.xcframework"
         ),
         
+        // MARK: - BASS MIDI
         /**
          An extension enabling the playback of MIDI files and custom event sequences, using SF2 and 
          SFZ soundfonts to provide the sounds, including support for SF2PACK and
@@ -85,6 +94,25 @@ let package = Package(
         .binaryTarget(
             name: "libbassmidi",
             path: "./Frameworks/libbassmidi.xcframework"
+        ),
+        
+        // MARK: - BASS DSD
+        /**
+         An extension enabling the playback of `DSD (Direct Stream Digital)` data in
+         DSDIFF and DSF containers, and WavPack when used with the BASSWV add-on.
+         Includes raw DSD and DSD-over-PCM output options.
+         */
+        .target(
+            name: "BassDSD",
+            dependencies: [
+                .target(name: "bassdsd", condition: .when(platforms: [.iOS]))
+            ],
+            path: "Sources/BassDSD"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassdsd",
+            path: "./Frameworks/bassdsd.xcframework"
         ),
     ]
 )
