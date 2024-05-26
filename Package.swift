@@ -105,7 +105,8 @@ let package = Package(
         .target(
             name: "BassDSD",
             dependencies: [
-                .target(name: "bassdsd", condition: .when(platforms: [.iOS]))
+                .target(name: "bassdsd", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassdsd", condition: .when(platforms: [.macOS]))
             ],
             path: "Sources/BassDSD"
         ),
@@ -113,6 +114,11 @@ let package = Package(
         .binaryTarget(
             name: "bassdsd",
             path: "./Frameworks/bassdsd.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassdsd",
+            path: "./Frameworks/libbassdsd.xcframework"
         ),
     ]
 )
