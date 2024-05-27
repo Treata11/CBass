@@ -48,6 +48,11 @@ let package = Package(
         .library(
             name: "BassWV",
             targets: ["BassWV"]
+        ),
+    
+        .library(
+            name: "BassMix",
+            targets: ["BassMix"]
         )
     ],
     
@@ -67,7 +72,8 @@ let package = Package(
                 .target(name: "BassHLS"),
                 .target(name: "BassOpus"),
                 .target(name: "BassWebM"),
-                .target(name: "BassWV")
+                .target(name: "BassWV"),
+                .target(name: "BassMix")
             ],
             path: "Sources/CBass"
         ),
@@ -77,7 +83,9 @@ let package = Package(
             name: "Bass",
             dependencies: [
                 .target(name: "bass", condition: .when(platforms: [.iOS])),
-                .target(name: "libbass", condition: .when(platforms: [.macOS]))
+                .target(name: "libbass", condition: .when(platforms: [.macOS])),
+                // Might be useful here
+                .target(name: "BassMix")
             ],
             path: "Sources/Bass"
         ),
@@ -238,6 +246,31 @@ let package = Package(
         .binaryTarget(
             name: "libbasswv",
             path: "./Frameworks/libbasswv.xcframework"
+        ),
+        
+        // MARK: - Bass Mix
+        /**
+         An extension providing the ability to mix together multiple BASS channels,
+         with resampling and matrix mixing features.
+         Also provides the ability to split a BASS channel into multiple channels.
+         */
+        .target(
+            name: "BassMix",
+            dependencies: [
+                .target(name: "bassmix", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassmix", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassMix"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassmix",
+            path: "./Frameworks/bassmix.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassmix",
+            path: "./Frameworks/libbassmix.xcframework"
         ),
     ]
 )
