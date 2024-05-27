@@ -58,6 +58,11 @@ let package = Package(
         .library(
             name: "BassENC",
             targets: ["BassENC"]
+        ),
+        
+        .library(
+            name: "BassENC.MP3",
+            targets: ["BassENC.MP3"]
         )
     ],
     
@@ -77,9 +82,12 @@ let package = Package(
                 .target(name: "BassHLS"),
                 .target(name: "BassOpus"),
                 .target(name: "BassWebM"),
-                .target(name: "BassWV"),
-                .target(name: "BassMix"),
-                .target(name: "BassENC")
+                .target(name: "BassWV")
+                
+                /// Already included in target `Bass`
+//                .target(name: "BassMix"),
+//                .target(name: "BassENC"),
+//                .target(name: "BassENC.MP3"),
             ],
             path: "Sources/CBass"
         ),
@@ -292,7 +300,9 @@ let package = Package(
             name: "BassENC",
             dependencies: [
                 .target(name: "bassenc", condition: .when(platforms: [.iOS])),
-                .target(name: "libbassenc", condition: .when(platforms: [.macOS]))
+                .target(name: "libbassenc", condition: .when(platforms: [.macOS])),
+                // Extensions of BassENC
+                .target(name: "BassENC.MP3")
             ],
             path: "Sources/BassENC"
         ),
@@ -305,6 +315,29 @@ let package = Package(
         .binaryTarget(
             name: "libbassenc",
             path: "./Frameworks/libbassenc.xcframework"
+        ),
+        
+        // MARK: - Bass ENC MP3
+        /**
+         An extension to `BASSenc` that provides MP3 encoding of BASS channels, with support for `LAME` options.
+         */
+        .target(
+            name: "BassENC.MP3",
+            dependencies: [
+                .target(name: "bassenc_mp3", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassenc_mp3", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassENC_MP3"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassenc_mp3",
+            path: "./Frameworks/bassenc_mp3.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassenc_mp3",
+            path: "./Frameworks/libbassenc_mp3.xcframework"
         ),
     ]
 )
