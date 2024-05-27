@@ -63,6 +63,11 @@ let package = Package(
         .library(
             name: "BassENC.MP3",
             targets: ["BassENC.MP3"]
+        ),
+        
+        .library(
+            name: "BassENC.FLAC",
+            targets: ["BassENC.FLAC"]
         )
     ],
     
@@ -88,6 +93,7 @@ let package = Package(
 //                .target(name: "BassMix"),
 //                .target(name: "BassENC"),
 //                .target(name: "BassENC.MP3"),
+//                    .target(name: "BassENC.FLAC")
             ],
             path: "Sources/CBass"
         ),
@@ -302,7 +308,8 @@ let package = Package(
                 .target(name: "bassenc", condition: .when(platforms: [.iOS])),
                 .target(name: "libbassenc", condition: .when(platforms: [.macOS])),
                 // Extensions of BassENC
-                .target(name: "BassENC.MP3")
+                .target(name: "BassENC.MP3"),
+                .target(name: "BassENC.FLAC")
             ],
             path: "Sources/BassENC"
         ),
@@ -338,6 +345,30 @@ let package = Package(
         .binaryTarget(
             name: "libbassenc_mp3",
             path: "./Frameworks/libbassenc_mp3.xcframework"
+        ),
+        
+        // MARK: - Bass ENC FLAC
+        /**
+         An extension to BASSenc that provides [FLAC](https://xiph.org/flac/) encoding of
+         BASS channels, including support for Ogg FLAC and chained bitstreams.
+         */
+        .target(
+            name: "BassENC.FLAC",
+            dependencies: [
+                .target(name: "bassenc_flac", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassenc_flac", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassENC_FLAC"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassenc_flac",
+            path: "./Frameworks/bassenc_flac.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassenc_flac",
+            path: "./Frameworks/libbassenc_flac.xcframework"
         ),
     ]
 )
