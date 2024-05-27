@@ -78,6 +78,11 @@ let package = Package(
         .library(
             name: "BassENC.Opus",
             targets: ["BassENC.Opus"]
+        ),
+        
+        .library(
+            name: "BassLoud",
+            targets: ["BassLoud"]
         )
     ],
     
@@ -99,13 +104,14 @@ let package = Package(
                 .target(name: "BassWebM"),
                 .target(name: "BassWV"),
                 
-                /// Already included in target `Bass`
+                /// Already included in target `Bass` or `BassENC`
 //                .target(name: "BassMix"),
 //                .target(name: "BassENC"),
 //                .target(name: "BassENC.MP3"),
-//                .target(name: "BassENC.FLAC")
-//                .target(name: "BassENC.OGG")
-//                .target(name: "BassENC.Opus")
+//                .target(name: "BassENC.FLAC"),
+//                .target(name: "BassENC.OGG"),
+//                .target(name: "BassENC.Opus"),
+//                .target(name: "BassLoud"),
             ],
             path: "Sources/CBass"
         ),
@@ -118,7 +124,8 @@ let package = Package(
                 .target(name: "libbass", condition: .when(platforms: [.macOS])),
                 // Might be useful here
                 .target(name: "BassMix"),
-                .target(name: "BassENC")
+                .target(name: "BassENC"),
+                .target(name: "BassLoud")
             ],
             path: "Sources/Bass"
         ),
@@ -411,7 +418,8 @@ let package = Package(
         
         // MARK: -
         /**
-         
+         An extension to BASSenc that provides [Opus](https://opus-codec.org/) encoding of
+         BASS channels, with support for OPUSENC options and chained bitstreams.
          */
         .target(
             name: "BassENC.Opus",
@@ -432,6 +440,27 @@ let package = Package(
             path: "./Frameworks/libbassenc_opus.xcframework"
         ),
         
-        
+        // MARK: - Bass Loud
+        /**
+         An extension providing loudness measurement of BASS channels.
+         */
+        .target(
+            name: "BassLoud",
+            dependencies: [
+                .target(name: "bassloud", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassloud", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/bassloud"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassloud",
+            path: "./Frameworks/bassloud.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassloud",
+            path: "./Frameworks/libbassloud.xcframework"
+        ),
     ]
 )
