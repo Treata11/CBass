@@ -53,6 +53,11 @@ let package = Package(
         .library(
             name: "BassMix",
             targets: ["BassMix"]
+        ),
+        
+        .library(
+            name: "BassENC",
+            targets: ["BassENC"]
         )
     ],
     
@@ -73,7 +78,8 @@ let package = Package(
                 .target(name: "BassOpus"),
                 .target(name: "BassWebM"),
                 .target(name: "BassWV"),
-                .target(name: "BassMix")
+                .target(name: "BassMix"),
+                .target(name: "BassENC")
             ],
             path: "Sources/CBass"
         ),
@@ -85,7 +91,8 @@ let package = Package(
                 .target(name: "bass", condition: .when(platforms: [.iOS])),
                 .target(name: "libbass", condition: .when(platforms: [.macOS])),
                 // Might be useful here
-                .target(name: "BassMix")
+                .target(name: "BassMix"),
+                .target(name: "BassENC")
             ],
             path: "Sources/Bass"
         ),
@@ -271,6 +278,33 @@ let package = Package(
         .binaryTarget(
             name: "libbassmix",
             path: "./Frameworks/libbassmix.xcframework"
+        ),
+        
+        // MARK: - Bass ENC
+        /**
+         An extension that allows BASS channels to be encoded using command-line encoders with
+         `STDIN` support, or ACM codecs (on Windows) or CoreAudio codecs (on `macOS/iOS`),
+         or user-provided encoders.
+         Also features streaming of encoded data to clients directly or via Shoutcast and 
+         Icecast servers, and `PCM` `WAV/AIFF` file writing.
+         */
+        .target(
+            name: "BassENC",
+            dependencies: [
+                .target(name: "bassenc", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassenc", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassENC"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassenc",
+            path: "./Frameworks/bassenc.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassenc",
+            path: "./Frameworks/libbassenc.xcframework"
         ),
     ]
 )
