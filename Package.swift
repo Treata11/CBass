@@ -83,6 +83,11 @@ let package = Package(
         .library(
             name: "BassLoud",
             targets: ["BassLoud"]
+        ),
+        
+        .library(
+            name: "BassApe",
+            targets: ["BassApe"]
         )
     ],
     
@@ -100,6 +105,7 @@ let package = Package(
                 .target(name: "BassMIDI"),
                 .target(name: "BassDSD"),
                 .target(name: "BassHLS"),
+                .target(name: "BassApe"),
                 .target(name: "BassOpus"),
                 .target(name: "BassWebM"),
                 .target(name: "BassWV"),
@@ -215,6 +221,29 @@ let package = Package(
         .binaryTarget(
             name: "libbasshls",
             path: "./Frameworks/libbasshls.xcframework"
+        ),
+        
+        // MARK: - Bass Ape
+        /**
+         An extension enabling the playback of [Monkey's Audio](https://monkeysaudio.com) encoded files.
+         */
+        .target(
+            name: "BassApe",
+            dependencies: [
+                .target(name: "bassape", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassape", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/bassape"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassape",
+            path: "./Frameworks/bassape.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassape",
+            path: "./Frameworks/libbassape.xcframework"
         ),
         
         // MARK: - BASS Opus
