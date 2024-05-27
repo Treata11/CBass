@@ -68,6 +68,11 @@ let package = Package(
         .library(
             name: "BassENC.FLAC",
             targets: ["BassENC.FLAC"]
+        ),
+        
+        .library(
+            name: "BassENC.OGG",
+            targets: ["BassENC.OGG"]
         )
     ],
     
@@ -87,13 +92,14 @@ let package = Package(
                 .target(name: "BassHLS"),
                 .target(name: "BassOpus"),
                 .target(name: "BassWebM"),
-                .target(name: "BassWV")
+                .target(name: "BassWV"),
                 
                 /// Already included in target `Bass`
 //                .target(name: "BassMix"),
 //                .target(name: "BassENC"),
 //                .target(name: "BassENC.MP3"),
-//                    .target(name: "BassENC.FLAC")
+//                .target(name: "BassENC.FLAC")
+//                .target(name: "BassENC.OGG")
             ],
             path: "Sources/CBass"
         ),
@@ -309,7 +315,8 @@ let package = Package(
                 .target(name: "libbassenc", condition: .when(platforms: [.macOS])),
                 // Extensions of BassENC
                 .target(name: "BassENC.MP3"),
-                .target(name: "BassENC.FLAC")
+                .target(name: "BassENC.FLAC"),
+                .target(name: "BassENC.OGG")
             ],
             path: "Sources/BassENC"
         ),
@@ -369,6 +376,30 @@ let package = Package(
         .binaryTarget(
             name: "libbassenc_flac",
             path: "./Frameworks/libbassenc_flac.xcframework"
+        ),
+        
+        // MARK: - Bass ENC OGG
+        /**
+         An extension to BASSenc that provides [Ogg Vorbis](https://xiph.org/vorbis/)
+         encoding of BASS channels, with support for OGGENC options and chained bitstreams.
+         */
+        .target(
+            name: "BassENC.OGG",
+            dependencies: [
+                .target(name: "bassenc_ogg", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassenc_ogg", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassENC_OGG"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassenc_ogg",
+            path: "./Frameworks/bassenc_ogg.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassenc_ogg",
+            path: "./Frameworks/libbassenc_ogg.xcframework"
         ),
     ]
 )
