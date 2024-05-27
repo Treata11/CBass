@@ -73,6 +73,11 @@ let package = Package(
         .library(
             name: "BassENC.OGG",
             targets: ["BassENC.OGG"]
+        ),
+        
+        .library(
+            name: "BassENC.Opus",
+            targets: ["BassENC.Opus"]
         )
     ],
     
@@ -100,6 +105,7 @@ let package = Package(
 //                .target(name: "BassENC.MP3"),
 //                .target(name: "BassENC.FLAC")
 //                .target(name: "BassENC.OGG")
+//                .target(name: "BassENC.Opus")
             ],
             path: "Sources/CBass"
         ),
@@ -316,7 +322,8 @@ let package = Package(
                 // Extensions of BassENC
                 .target(name: "BassENC.MP3"),
                 .target(name: "BassENC.FLAC"),
-                .target(name: "BassENC.OGG")
+                .target(name: "BassENC.OGG"),
+                .target(name: "BassENC.Opus")
             ],
             path: "Sources/BassENC"
         ),
@@ -401,5 +408,30 @@ let package = Package(
             name: "libbassenc_ogg",
             path: "./Frameworks/libbassenc_ogg.xcframework"
         ),
+        
+        // MARK: -
+        /**
+         
+         */
+        .target(
+            name: "BassENC.Opus",
+            dependencies: [
+                .target(name: "bassenc_opus", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassenc_opus", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/bassenc_opus"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassenc_opus",
+            path: "./Frameworks/bassenc_opus.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassenc_opus",
+            path: "./Frameworks/libbassenc_opus.xcframework"
+        ),
+        
+        
     ]
 )
