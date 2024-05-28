@@ -93,6 +93,11 @@ let package = Package(
         .library(
             name: "BassFX",
             targets: ["BassFX"]
+        ),
+        
+        .library(
+            name: "BassMPC",
+            targets: ["BassMPC"]
         )
     ],
     
@@ -114,7 +119,8 @@ let package = Package(
                 .target(name: "BassOpus"),
                 .target(name: "BassWebM"),
                 .target(name: "BassWV"),
-                .target(name: "BassFX")
+                .target(name: "BassFX"),
+                .target(name: "BassMPC")
                 
                 /// Already included in target `Bass` or `BassENC`
 //                .target(name: "BassMix"),
@@ -521,6 +527,30 @@ let package = Package(
         .binaryTarget(
             name: "libbass_fx",
             path: "./Frameworks/libbass_fx.xcframework"
+        ),
+        
+        
+        // MARK: - BASS MPC
+        /**
+         An extension enabling the playback of [Musepack](https://www.musepack.net/) encoded files and streams.
+         */
+        .target(
+            name: "BassMPC",
+            dependencies: [
+                .target(name: "bass_mpc", condition: .when(platforms: [.iOS])),
+                .target(name: "libbass_mpc", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassMPC"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bass_mpc",
+            path: "./Frameworks/bass_mpc.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbass_mpc",
+            path: "./Frameworks/libbass_mpc.xcframework"
         ),
     ]
 )
