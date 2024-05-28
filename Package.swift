@@ -26,13 +26,8 @@ let package = Package(
         ),
         
         .library(
-            name: "BassDSD",
-            targets: ["BassDSD"]
-        ),
-        
-        .library(
-            name: "BassHLS",
-            targets: ["BassHLS"]
+            name: "BassWV",
+            targets: ["BassWV"]
         ),
         
         .library(
@@ -41,13 +36,18 @@ let package = Package(
         ),
         
         .library(
+            name: "BassDSD",
+            targets: ["BassDSD"]
+        ),
+        
+        .library(
             name: "BassWebM",
             targets: ["BassWebM"]
         ),
         
         .library(
-            name: "BassWV",
-            targets: ["BassWV"]
+            name: "BassHLS",
+            targets: ["BassHLS"]
         ),
     
         .library(
@@ -133,12 +133,12 @@ let package = Package(
             dependencies: [
                 .target(name: "Bass"),
                 .target(name: "BassMIDI"),
+                .target(name: "BassWV"),
+                .target(name: "BassOpus"),
                 .target(name: "BassDSD"),
+                .target(name: "BassWebM"),
                 .target(name: "BassHLS"),
                 .target(name: "BassApe"),
-                .target(name: "BassOpus"),
-                .target(name: "BassWebM"),
-                .target(name: "BassWV"),
                 .target(name: "BassFX"),
                 .target(name: "BassMPC"),
                 .target(name: "BassTTA"),
@@ -210,11 +210,58 @@ let package = Package(
             path: "./Frameworks/libbassmidi.xcframework"
         ),
         
+        // MARK: - BASS WV
+        /**
+         An extension enabling the playback of [WavPack](https://www.wavpack.com/)
+         encoded files and streams, including WavPack DSD files when used with the BASSDSD add-on.
+         */
+        .target(
+            name: "BassWV",
+            dependencies: [
+                .target(name: "basswv", condition: .when(platforms: [.iOS])),
+                .target(name: "libbasswv", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassWV"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "basswv",
+            path: "./Frameworks/basswv.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbasswv",
+            path: "./Frameworks/libbasswv.xcframework"
+        ),
+        
+        // MARK: - BASS Opus
+        /**
+         An extension enabling the playback of [Opus](https://opus-codec.org/) encoded files and streams.
+         */
+        .target(
+            name: "BassOpus",
+            dependencies: [
+                .target(name: "bassopus", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassopus", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassOpus"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassopus",
+            path: "./Frameworks/bassopus.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassopus",
+            path: "./Frameworks/libbassopus.xcframework"
+        ),
+        
         // MARK: - BASS DSD
         /**
-         An extension enabling the playback of `DSD (Direct Stream Digital)` data in
-         DSDIFF and DSF containers, and WavPack when used with the BASSWV add-on.
-         Includes raw DSD and DSD-over-PCM output options.
+         An extension enabling the playback of **DSD (Direct Stream Digital)** data in
+         `DSDIFF` and `DSF` containers, and WavPack when used with the `BASSWV` add-on.
+         Includes `raw DSD` and `DSD-over-PCM` output options.
          */
         .target(
             name: "BassDSD",
@@ -235,9 +282,34 @@ let package = Package(
             path: "./Frameworks/libbassdsd.xcframework"
         ),
         
+        
+        // MARK: - BASS WebM
+        /**
+         An extension enabling the playback of [WebM](https://www.webmproject.org/) and
+         [Matroska](https://www.matroska.org/) files and streams.
+         */
+        .target(
+            name: "BassWebM",
+            dependencies: [
+                .target(name: "basswebm", condition: .when(platforms: [.iOS])),
+                .target(name: "libbasswebm", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassWebM"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "basswebm",
+            path: "./Frameworks/basswebm.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbasswebm",
+            path: "./Frameworks/libbasswebm.xcframework"
+        ),
+        
         // MARK: - BASS HLS
         /**
-         An extension enabling the playback of `HLS (HTTP Live Streaming)` streams.
+         An extension enabling the playback of **HLS (HTTP Live Streaming)** streams.
          Local media playlists and segments are also supported.
          */
         .target(
@@ -280,77 +352,6 @@ let package = Package(
         .binaryTarget(
             name: "libbassape",
             path: "./Frameworks/libbassape.xcframework"
-        ),
-        
-        // MARK: - BASS Opus
-        /**
-         An extension enabling the playback of [Opus](https://opus-codec.org/) encoded files and streams.
-         */
-        .target(
-            name: "BassOpus",
-            dependencies: [
-                .target(name: "bassopus", condition: .when(platforms: [.iOS])),
-                .target(name: "libbassopus", condition: .when(platforms: [.macOS]))
-            ],
-            path: "Sources/BassOpus"
-        ),
-        /// The **iOS** binary target
-        .binaryTarget(
-            name: "bassopus",
-            path: "./Frameworks/bassopus.xcframework"
-        ),
-        /// The **macOS** binary target
-        .binaryTarget(
-            name: "libbassopus",
-            path: "./Frameworks/libbassopus.xcframework"
-        ),
-        
-        // MARK: - BASS WebM
-        /**
-         An extension enabling the playback of [WebM](https://www.webmproject.org/) and
-         [Matroska](https://www.matroska.org/) files and streams.
-         */
-        .target(
-            name: "BassWebM",
-            dependencies: [
-                .target(name: "basswebm", condition: .when(platforms: [.iOS])),
-                .target(name: "libbasswebm", condition: .when(platforms: [.macOS]))
-            ],
-            path: "Sources/BassWebM"
-        ),
-        /// The **iOS** binary target
-        .binaryTarget(
-            name: "basswebm",
-            path: "./Frameworks/basswebm.xcframework"
-        ),
-        /// The **macOS** binary target
-        .binaryTarget(
-            name: "libbasswebm",
-            path: "./Frameworks/libbasswebm.xcframework"
-        ),
-        
-        // MARK: - BASS WV
-        /**
-         An extension enabling the playback of [WavPack](https://www.wavpack.com/)
-         encoded files and streams, including WavPack DSD files when used with the BASSDSD add-on.
-         */
-        .target(
-            name: "BassWV",
-            dependencies: [
-                .target(name: "basswv", condition: .when(platforms: [.iOS])),
-                .target(name: "libbasswv", condition: .when(platforms: [.macOS]))
-            ],
-            path: "Sources/BassWV"
-        ),
-        /// The **iOS** binary target
-        .binaryTarget(
-            name: "basswv",
-            path: "./Frameworks/basswv.xcframework"
-        ),
-        /// The **macOS** binary target
-        .binaryTarget(
-            name: "libbasswv",
-            path: "./Frameworks/libbasswv.xcframework"
         ),
         
         // MARK: - Bass Mix
@@ -481,7 +482,7 @@ let package = Package(
             path: "./Frameworks/libbassenc_ogg.xcframework"
         ),
         
-        // MARK: -
+        // MARK: - Bass ENC Opus
         /**
          An extension to BASSenc that provides [Opus](https://opus-codec.org/) encoding of
          BASS channels, with support for OPUSENC options and chained bitstreams.
