@@ -113,6 +113,11 @@ let package = Package(
         .library(
             name: "BassVST",
             targets: ["BassVST"]
+        ),
+        
+        .library(
+            name: "Tags",
+            targets: ["Tags"]
         )
     ],
     
@@ -139,6 +144,7 @@ let package = Package(
                 .target(name: "BassTTA"),
                 .target(name: "BassSPX", condition: .when(platforms: [.macOS])),
                 .target(name: "BassVST", condition: .when(platforms: [.macOS])),
+                .target(name: "Tags")
                 
                 /// Already included in target `Bass` or `BassENC`
 //                .target(name: "BassMix"),
@@ -522,7 +528,11 @@ let package = Package(
             path: "./Frameworks/libbassloud.xcframework"
         ),
         
+        
+        
     // MARK: - More Add-Ons -
+        
+        
         
         // MARK: - BASS FX
         /**
@@ -631,5 +641,29 @@ let package = Package(
             name: "libbass_vst",
             path: "./Frameworks/libbass_vst.xcframework"
         ),
+        
+        // MARK: - Tags
+        /**
+         An extension producing formatted **text** from the 
+         `ID3v1/v2`, `OGG/FLAC`, `WMA`, `APE`, `MP4`, and `RIFF` tags of a BASS stream.
+         */
+        .target(
+            name: "Tags",
+            dependencies: [
+                .target(name: "tags", condition: .when(platforms: [.iOS])),
+                .target(name: "libtags", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/Tags"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "tags",
+            path: "./Frameworks/tags.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libtags",
+            path: "./Frameworks/libtags.xcframework"
+        )
     ]
 )
