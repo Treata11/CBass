@@ -98,6 +98,11 @@ let package = Package(
         .library(
             name: "BassMPC",
             targets: ["BassMPC"]
+        ),
+        
+        .library(
+            name: "BassTTA",
+            targets: ["BassTTA"]
         )
     ],
     
@@ -120,7 +125,8 @@ let package = Package(
                 .target(name: "BassWebM"),
                 .target(name: "BassWV"),
                 .target(name: "BassFX"),
-                .target(name: "BassMPC")
+                .target(name: "BassMPC"),
+                .target(name: "BassTTA")
                 
                 /// Already included in target `Bass` or `BassENC`
 //                .target(name: "BassMix"),
@@ -551,6 +557,29 @@ let package = Package(
         .binaryTarget(
             name: "libbass_mpc",
             path: "./Frameworks/libbass_mpc.xcframework"
+        ),
+        
+        // MARK: - BASS_TTA
+        /**
+         An extension enabling the playback of [TTA](http://tta.tausoft.org) encoded files.
+         */
+        .target(
+            name: "BassTTA",
+            dependencies: [
+                .target(name: "bass_tta", condition: .when(platforms: [.iOS])),
+                .target(name: "libbass_tta", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassTTA"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bass_tta",
+            path: "./Frameworks/bass_tta.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbass_tta",
+            path: "./Frameworks/libbass_tta.xcframework"
         ),
     ]
 )
