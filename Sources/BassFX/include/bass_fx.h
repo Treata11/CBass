@@ -24,6 +24,8 @@
 #ifndef BASS_FXDEF
 	#define BASS_FXDEF(f) WINAPI f
 #endif
+    
+#include "bass.h"
 
 // BASS_CHANNELINFO types
 #define BASS_CTYPE_STREAM_TEMPO		0x1f200
