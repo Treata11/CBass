@@ -103,6 +103,11 @@ let package = Package(
         .library(
             name: "BassTTA",
             targets: ["BassTTA"]
+        ),
+        
+        .library(
+            name: "BassSPX",
+            targets: ["BassSPX"]
         )
     ],
     
@@ -126,7 +131,8 @@ let package = Package(
                 .target(name: "BassWV"),
                 .target(name: "BassFX"),
                 .target(name: "BassMPC"),
-                .target(name: "BassTTA")
+                .target(name: "BassTTA"),
+                .target(name: "BassSPX", condition: .when(platforms: [.macOS]))
                 
                 /// Already included in target `Bass` or `BassENC`
 //                .target(name: "BassMix"),
@@ -559,7 +565,7 @@ let package = Package(
             path: "./Frameworks/libbass_mpc.xcframework"
         ),
         
-        // MARK: - BASS_TTA
+        // MARK: - Bass TTA
         /**
          An extension enabling the playback of [TTA](http://tta.tausoft.org) encoded files.
          */
@@ -580,6 +586,25 @@ let package = Package(
         .binaryTarget(
             name: "libbass_tta",
             path: "./Frameworks/libbass_tta.xcframework"
+        ),
+        
+        // MARK: - Bass SPX
+        /**
+         An extension enabling the playback of [Speex](https://www.speex.org) encoded files.
+         
+         ***MacOS Only**
+         */
+        .target(
+            name: "BassSPX",
+            dependencies: [
+                .target(name: "libbass_spx", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassSPX"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbass_spx",
+            path: "./Frameworks/libbass_spx.xcframework"
         ),
     ]
 )
