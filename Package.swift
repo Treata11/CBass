@@ -88,6 +88,11 @@ let package = Package(
         .library(
             name: "BassApe",
             targets: ["BassApe"]
+        ),
+        
+        .library(
+            name: "BassFX",
+            targets: ["BassFX"]
         )
     ],
     
@@ -109,6 +114,7 @@ let package = Package(
                 .target(name: "BassOpus"),
                 .target(name: "BassWebM"),
                 .target(name: "BassWV"),
+                .target(name: "BassFX")
                 
                 /// Already included in target `Bass` or `BassENC`
 //                .target(name: "BassMix"),
@@ -490,6 +496,31 @@ let package = Package(
         .binaryTarget(
             name: "libbassloud",
             path: "./Frameworks/libbassloud.xcframework"
+        ),
+        
+    // MARK: - More Add-Ons
+        
+        // MARK: - BASS FX
+        /**
+         An extension providing several effects, including reverse playback and tempo & pitch control.
+         */
+        .target(
+            name: "BassFX",
+            dependencies: [
+                .target(name: "bass_fx", condition: .when(platforms: [.iOS])),
+                .target(name: "libbass_fx", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassFX"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bass_fx",
+            path: "./Frameworks/bass_fx.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbass_fx",
+            path: "./Frameworks/libbass_fx.xcframework"
         ),
     ]
 )
