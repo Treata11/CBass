@@ -108,6 +108,11 @@ let package = Package(
         .library(
             name: "BassSPX",
             targets: ["BassSPX"]
+        ),
+        
+        .library(
+            name: "BassVST",
+            targets: ["BassVST"]
         )
     ],
     
@@ -132,7 +137,8 @@ let package = Package(
                 .target(name: "BassFX"),
                 .target(name: "BassMPC"),
                 .target(name: "BassTTA"),
-                .target(name: "BassSPX", condition: .when(platforms: [.macOS]))
+                .target(name: "BassSPX", condition: .when(platforms: [.macOS])),
+                .target(name: "BassVST", condition: .when(platforms: [.macOS])),
                 
                 /// Already included in target `Bass` or `BassENC`
 //                .target(name: "BassMix"),
@@ -605,6 +611,25 @@ let package = Package(
         .binaryTarget(
             name: "libbass_spx",
             path: "./Frameworks/libbass_spx.xcframework"
+        ),
+        
+        // MARK: - Bass VST
+        /**
+         An extension enabling the use of VST effects and instruments with BASS.
+         
+         ***MacOS Only**
+         */
+        .target(
+            name: "BassVST",
+            dependencies: [
+                .target(name: "libbass_vst", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassVST"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbass_vst",
+            path: "./Frameworks/libbass_vst.xcframework"
         ),
     ]
 )
