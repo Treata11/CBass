@@ -21,6 +21,11 @@ let package = Package(
         ),
         
         .library(
+            name: "BassFLAC",
+            targets: ["BassFLAC"]
+        ),
+        
+        .library(
             name: "BassMIDI",
             targets: ["BassMIDI"]
         ),
@@ -132,6 +137,7 @@ let package = Package(
             name: "CBass",
             dependencies: [
                 .target(name: "Bass"),
+                .target(name: "BassFLAC"),
                 .target(name: "BassMIDI"),
                 .target(name: "BassWV"),
                 .target(name: "BassOpus"),
@@ -180,6 +186,30 @@ let package = Package(
         .binaryTarget(
             name: "libbass",
             path: "./Frameworks/libbass.xcframework"
+        ),
+        
+        // MARK: - BASS FLAC
+        /**
+         An extension enabling the playback of [FLAC](https://xiph.org/flac) 
+         (including Ogg FLAC) encoded files and streams.
+         */
+        .target(
+            name: "BassFLAC",
+            dependencies: [
+                .target(name: "bassflac", condition: .when(platforms: [.iOS])),
+                .target(name: "libbassflac", condition: .when(platforms: [.macOS]))
+            ],
+            path: "Sources/BassFLAC"
+        ),
+        /// The **iOS** binary target
+        .binaryTarget(
+            name: "bassflac",
+            path: "./Frameworks/bassflac.xcframework"
+        ),
+        /// The **macOS** binary target
+        .binaryTarget(
+            name: "libbassflac",
+            path: "./Frameworks/libbassflac.xcframework"
         ),
         
         // MARK: - BASS MIDI

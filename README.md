@@ -19,6 +19,15 @@ The Main APIs of Bass which includes the `bass.xcframework` & `libbass.xcframewo
 
 
 <details>
+<summary> BASSFLAC 2.4.5.5 </summary>
+
+ An extension enabling the playback of [FLAC](https://xiph.org/flac) 
+ (including Ogg FLAC) encoded files and streams.
+
+</details>
+
+
+<details>
 <summary> BASSMIDI 2.4.14.1 </summary>
 
  An extension enabling the playback of MIDI files and custom event sequences, using SF2 and 
