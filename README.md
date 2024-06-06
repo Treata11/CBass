@@ -68,15 +68,6 @@ An extension enabling the playback of [Opus](https://opus-codec.org/) encoded fi
 
 
 <details>
-<summary> BASSALAC 2.4.0.3 </summary>
-
- An extension enabling the playback of [WebM](https://www.webmproject.org/) and
- [Matroska](https://www.matroska.org/) files and streams.
- 
-</details>
-
-
-<details>
 <summary> BASSWEBM 2.4.0.3 </summary>
 
  An extension enabling the playback of [WebM](https://www.webmproject.org/) and
