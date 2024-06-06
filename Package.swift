@@ -14,112 +14,90 @@ let package = Package(
             name: "CBass",
             targets: ["CBass"]
         ),
-        
         .library(
             name: "Bass",
             targets: ["Bass"]
         ),
-        
         .library(
             name: "BassFLAC",
             targets: ["BassFLAC"]
         ),
-        
         .library(
             name: "BassMIDI",
             targets: ["BassMIDI"]
         ),
-        
         .library(
             name: "BassWV",
             targets: ["BassWV"]
         ),
-        
         .library(
             name: "BassOpus",
             targets: ["BassOpus"]
         ),
-        
         .library(
             name: "BassDSD",
             targets: ["BassDSD"]
         ),
-        
         .library(
             name: "BassWebM",
             targets: ["BassWebM"]
         ),
-        
         .library(
             name: "BassHLS",
             targets: ["BassHLS"]
         ),
-    
         .library(
             name: "BassMix",
             targets: ["BassMix"]
         ),
-        
         .library(
             name: "BassENC",
             targets: ["BassENC"]
         ),
-        
         .library(
             name: "BassENC.MP3",
             targets: ["BassENC.MP3"]
         ),
-        
         .library(
             name: "BassENC.FLAC",
             targets: ["BassENC.FLAC"]
         ),
-        
         .library(
             name: "BassENC.OGG",
             targets: ["BassENC.OGG"]
         ),
-        
         .library(
             name: "BassENC.Opus",
             targets: ["BassENC.Opus"]
         ),
-        
         .library(
             name: "BassLoud",
             targets: ["BassLoud"]
         ),
-        
         .library(
             name: "BassApe",
             targets: ["BassApe"]
         ),
-        
         .library(
             name: "BassFX",
             targets: ["BassFX"]
         ),
-        
         .library(
             name: "BassMPC",
             targets: ["BassMPC"]
         ),
-        
         .library(
             name: "BassTTA",
             targets: ["BassTTA"]
         ),
-        
         .library(
             name: "BassSPX",
             targets: ["BassSPX"]
         ),
-        
         .library(
             name: "BassVST",
             targets: ["BassVST"]
         ),
-        
         .library(
             name: "Tags",
             targets: ["Tags"]
@@ -145,21 +123,19 @@ let package = Package(
                 .target(name: "BassWebM"),
                 .target(name: "BassHLS"),
                 .target(name: "BassApe"),
+                .target(name: "BassMix"),
+                .target(name: "BassENC"),
+                .target(name: "BassENC.MP3"),
+                .target(name: "BassENC.FLAC"),
+                .target(name: "BassENC.OGG"),
+                .target(name: "BassENC.Opus"),
+                .target(name: "BassLoud"),
                 .target(name: "BassFX"),
                 .target(name: "BassMPC"),
                 .target(name: "BassTTA"),
                 .target(name: "BassSPX", condition: .when(platforms: [.macOS])),
                 .target(name: "BassVST", condition: .when(platforms: [.macOS])),
                 .target(name: "Tags")
-                
-                /// Already included in target `Bass` or `BassENC`
-//                .target(name: "BassMix"),
-//                .target(name: "BassENC"),
-//                .target(name: "BassENC.MP3"),
-//                .target(name: "BassENC.FLAC"),
-//                .target(name: "BassENC.OGG"),
-//                .target(name: "BassENC.Opus"),
-//                .target(name: "BassLoud"),
             ],
             path: "Sources/CBass"
         ),
@@ -169,11 +145,7 @@ let package = Package(
             name: "Bass",
             dependencies: [
                 .target(name: "bass", condition: .when(platforms: [.iOS])),
-                .target(name: "libbass", condition: .when(platforms: [.macOS])),
-                // Might be useful here
-                .target(name: "BassMix"),
-                .target(name: "BassENC"),
-                .target(name: "BassLoud")
+                .target(name: "libbass", condition: .when(platforms: [.macOS]))
             ],
             path: "Sources/Bass"
         ),
