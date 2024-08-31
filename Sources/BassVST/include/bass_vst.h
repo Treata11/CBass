@@ -143,6 +143,11 @@
 #include "bass.h"
 #endif
 
+#ifdef __OBJC__
+typedef int BOOL32;
+#define BOOL BOOL32 // override objc's BOOL
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
