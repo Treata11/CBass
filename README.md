@@ -220,3 +220,9 @@ An extension enabling the playback of [TTA](http://tta.tausoft.org) encoded file
 To import BASS into your Xcode project, click on "File | Add Package Dependencies...".  In the resultant pop-up window, type "github.com/Teatra11/CBass" as the repository url, and click on "Add Package".  Then type "import CBass" at the top of any class in the project using BASS library commands.
 
 To be clear, the CBass Swift Package wrapper is open source, but the wrapper's contents (mainly the files bass.xcframework, libbass.xcframework, bass.h, bridge.c, and bridge.h) are proprietary to Un4seen Developments. Usage of these files is free for non-commercial use.  Commercial developers should contact Un4seen Developments to arrange proper licensing.
+
+
+
+## Sample App
+
+SwiftCBassDemo is a simple Swift app that imports the CBass package and demonstrates how to use it.  See [here](https://github.com/Treata11/SwiftCBassDemo) for the source code.
