@@ -4,9 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		LhVC93RRYY8zhZwfGaHTI1U3PLk=
+		</data>
 		<key>macos-arm64_i386_x86_64/libbassflac.dylib</key>
 		<data>
-		U9f3LUi1f731bx4Zsr3uBc8jcmk=
+		MT33oKxro81CrggrGpKoMPwGEac=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -15,11 +19,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			U9f3LUi1f731bx4Zsr3uBc8jcmk=
+			MT33oKxro81CrggrGpKoMPwGEac=
 			</data>
 			<key>hash2</key>
 			<data>
-			mjZFoI+9MVc3sHcFYOhEV0LBF6Gj614wuvMbDCRG9EE=
+			tXe2rIFalTSyJ/vcXxGpR+HJViCtlyZrgCV8st9plPs=
 			</data>
 		</dict>
 	</dict>

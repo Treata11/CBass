@@ -4,9 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		Bwvu+w+Ds4UsqcOfJWEaLPrGsEw=
+		</data>
 		<key>macos-arm64_i386_x86_64/libbassenc_mp3.dylib</key>
 		<data>
-		JOgPECul+mfV8jwQFXXXkE+QF8w=
+		msf3Cm4gmGyalKYoqzDeGo6c3rs=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -15,11 +19,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			JOgPECul+mfV8jwQFXXXkE+QF8w=
+			msf3Cm4gmGyalKYoqzDeGo6c3rs=
 			</data>
 			<key>hash2</key>
 			<data>
-			netnGiotSceSoD1XCZFRgkppylU+sCptS8QEXu1MaT8=
+			xh55Gf+eH+WV2YS+aqPhbNXsHiCVv9XXIFLBu30UmPg=
 			</data>
 		</dict>
 	</dict>

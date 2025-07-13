@@ -4,9 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>.DS_Store</key>
+		<data>
+		aNRUteb9o00QMESp0h0qYIQMRM8=
+		</data>
 		<key>macos-arm64_i386_x86_64/libbass_tta.dylib</key>
 		<data>
-		NNTSX/7CbtGFN304g+JiH4zrtRc=
+		KZja9MBfA+mWb/DcEmkKoZPVZBk=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -15,11 +19,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			NNTSX/7CbtGFN304g+JiH4zrtRc=
+			KZja9MBfA+mWb/DcEmkKoZPVZBk=
 			</data>
 			<key>hash2</key>
 			<data>
-			mOsntFVH/pPaqNo/+RY7Ro0BiQJPxLezfePJAgfwyfk=
+			5BQpgCLpwZicTSgRW8nz5POBa5h8wnM/VuZZWhcvYPU=
 			</data>
 		</dict>
 	</dict>
